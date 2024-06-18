@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax.html</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1 id="status">Ajax通信中...</h1>
+<canvas id="radarChart"></canvas>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    axios.get('dashboard2.php').then(function (response) {
+        console.log(response.data);//通信OK
+        const data = response.data;
+
+        // an_tableのデータ表示
+        $("#status").append('<h2>an_table</h2>');
+        data.an_table.forEach(function(item) {
+            $("#status").append('<p>' + JSON.stringify(item) + '</p>');
+        });
+
+        // レーダーチャート用データ
+        const labels = [
+            "理念浸透力",
+            "目標達成力",
+            "問題分析力・解決案提示力",
+            "継続力",
+            "クオリティ",
+            "伝達力",
+            "チームワーク",
+            "ルール遵守",
+            "主体的行動"
+        ];
+
+        const scores = data.an_table[0] ? [
+            data.an_table[0].philosophy_integration,
+            data.an_table[0].goal_achievement,
+            data.an_table[0].problem_analysis_solution,
+            data.an_table[0].persistence,
+            data.an_table[0].quality,
+            data.an_table[0].communication,
+            data.an_table[0].teamwork,
+            data.an_table[0].rule_compliance,
+            data.an_table[0].proactive_action
+        ] : [];
+
+        const chartData = {
+            labels: labels,
+            datasets: [{
+                label: '行動評価',
+                data: scores,
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)'
+            }]
+        };
+
+        const config = {
+            type: 'radar',
+            data: chartData,
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                const grades = ['0', 'D', 'C', 'B', 'A', 'S'];
+                                return grades[value];
+                            }
+                        }
+                    }
+                }
+            },
+        };
+
+        new Chart(
+            document.getElementById('radarChart'),
+            config
+        );
+    })
+    .catch(function (error) {
+        console.log(error);//通信Error
+    }).then(function () {
+        console.log("Last");//通信OK/Error後に処理を必ずさせたい場合
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ajax.html</title>
+</head>
+
+<body>
+    <h1 id="status">Ajax通信中...</h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        //axiosでAjax送信
+        axios.get('dashboard2.php').then(function (response) {  // ここを 'dashboard2.php' に変更
+            console.log(response.data);//通信OK
+            const data = response.data;
+
+            // an_tableのデータ表示
+            $("#status").append('<h2>an_table</h2>');
+            data.an_table.forEach(function (item) {
+                // 各データの詳細を表示
+                $("#status").append('<p>ID: ' + item.id + ', その他のデータ: ' + JSON.stringify(item) + '</p>');
+            });
+
+            // goal_co_tableのデータ表示
+            $("#status").append('<h2>goal_co_table</h2>');
+            data.goal_co_table.forEach(function (item) {
+                $("#status").append('<p>' + item.goal_co + '</p>');
+            });
+
+            // user_infoのデータ表示
+            $("#status").append('<h2>user_info</h2>');
+            data.user_info.forEach(function (item) {
+                $("#status").append('<p>' + item.name + ' (' + item.department_name + ', ' + item.grade_name + ', ' + item.position_name + ')</p>');
+            });
+        })
+            .catch(function (error) {
+                console.log(error);//通信Error
+            }).then(function () {
+                console.log("Last");//通信OK/Error後に処理を必ずさせたい場合
+            });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ajax_post.html</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="status">Ajax通信中...</h1>
+
+    <div class="chart-container hidden" id="competencyChartContainer">
+        <canvas id="competencyChart"></canvas>
+    </div>
+
+    <script>
+        // 送信データを用意
+        const params = new URLSearchParams();
+        params.append('user_id', 1); // ここで表示したいユーザーIDを指定
+
+        // Ajax（非同期通信）
+        axios.post('ajax_post.php', params)
+            .then(function (response) {
+                console.log(response.data);//通信OK
+                document.querySelector("#status").innerHTML = "ajax_post.php/通信OK";
+                const data = response.data;
+
+                if (data.error) {
+                    console.log(data.error);
+                    document.querySelector("#status").innerHTML = data.error;
+                    return;
+                }
+
+                const labels = [
+                    "理念浸透力",
+                    "目標達成力",
+                    "問題分析力・解決案提示力",
+                    "継続力",
+                    "クオリティ",
+                    "伝達力",
+                    "チームワーク",
+                    "ルール遵守",
+                    "主体的行動"
+                ];
+
+                const scores = [
+                    data.philosophy_integration,
+                    data.goal_achievement,
+                    data.problem_analysis_solution,
+                    data.persistence,
+                    data.quality,
+                    data.communication,
+                    data.teamwork,
+                    data.rule_compliance,
+                    data.proactive_action
+                ];
+
+                const dataForChart = {
+                    labels: labels,
+                    datasets: [{
+                        label: '行動評価',
+                        data: scores,
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                };
+
+                const config = {
+                    type: 'radar',
+                    data: dataForChart,
+                    options: {
+                        elements: {
+                            line: {
+                                borderWidth: 3
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: false
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 5,
+                                ticks: {
+                                    stepSize: 1,
+                                    callback: function (value) {
+                                        const grades = ['0', 'D', 'C', 'B', 'A', 'S'];
+                                        return grades[value];
+                                    }
+                                }
+                            }
+                        }
+                    },
+                };
+
+                const ctx = document.getElementById('competencyChart').getContext('2d');
+                new Chart(ctx, config);
+
+                // チャートコンテナを表示
+                document.getElementById('competencyChartContainer').classList.remove('hidden');
+            }).catch(function (error) {
+                console.log(error);//通信Error
+                document.querySelector("#status").innerHTML = "通信エラー";
+            }).then(function () {
+                console.log("Last");//通信OK/Error後に処理を必ずさせたい場合
+            });
+
+    </script>
+</body>
+
+</html>

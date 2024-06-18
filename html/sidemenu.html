@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>人事評価</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- sidemenu[Start] -->
+    <div class="bg-sky-950 w-1/4 min-h-screen fixed overflow-y-auto sidemenu">
+        <div class="container mx-auto text-white">
+            <div class="flex justify-between items-center">
+                <h1 class="text-4xl font-semibold md:text-xl">
+                </h1>
+                <!-- <div>
+                    <button id="menuButton">
+                        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                            <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
+                        </svg>
+                    </button>
+                </div> -->
+            </div>
+            <div id="menu" class="md:flex">
+                <ul class="flex flex-col">
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/dashboard.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">ダッシュボード</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/index.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">人事評価シート登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/select.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">人事評価シート一覧</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/user.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">ユーザー登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/company/index_co.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">会社目標登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/company/select_co.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">会社目標表示</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/idl/index_idl.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">個人目標登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/idl/select_idl.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">個人目標表示</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/goal/index_goal.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">業績目標登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/goal/select_goal.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">業績目標表示</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/competency/index_competency.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">行動評価登録</a>
+                    </li>
+                    <li class="border-b md:border-none">
+                        <a href="/phpkadai05/competency/select_competency.php" class="block px-8 py-2 my-4 hover:bg-sky-700 rounded">行動評価表示</a>
+                    </li>
+                    <li>
+                        <div class="my-8 text-center md:my-4">
+                            <a href="/phpkadai05/logout.php" class="px-6 py-2 bg-orange-500 hover:bg-orange-400 rounded-full">ログアウト</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        <!-- sidemenu[End] -->
+<!-- 
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const menuButton = document.getElementById("menuButton");
+                const menu = document.getElementById("menu");
+    
+                menuButton.addEventListener("click", function() {
+                    menu.classList.toggle("hidden");
+                });
+            });
+        </script> -->
+    </body>
+</html>

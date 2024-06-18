@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>人事評価</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        div {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
+        .content-wrapper {
+            margin-top: 80px; /* Adjust according to header height */
+            transition: margin-left 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header shadow-md">
+        <div class="flex justify-between items-center p-4">
+
+            <div>
+                <button id="menuButton">
+                    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" />
+                    </svg>
+                </button>
+            </div>
+
+            <h1 class="text-xl">にぎわいHR</h1>
+
+        <div class="flex items-center">
+            <h1 class="text-4xl font-semibold md:text-xl">
+                <?php echo $_SESSION["name"]; ?>さん　　
+            </h1>
+            <a href="/phpkadai05/logout.php" class="px-6 py-2 bg-orange-500 hover:bg-orange-400 rounded-full text-white">ログアウト</a>
+        </div>
+    </div>
+    </header>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const menuButton = document.getElementById("menuButton");
+                const sidemenu = document.querySelector('.sidemenu');
+                const contentWrapper = document.querySelector('.content-wrapper');
+    
+                menuButton.addEventListener("click", function() {
+                    sidemenu.classList.toggle("hidden");
+                if (sidemenu.classList.contains("hidden")) {
+                    contentWrapper.style.marginLeft = "0";
+                } else {
+                    contentWrapper.style.marginLeft = "25%"; // Adjust according to sidebar width
+                }
+            });
+            });
+        </script>
+    </body>
+</html>

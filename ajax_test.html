@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    
+    <div class="result">ここにajaxの結果を書き換えます</div>
+<input type="button" class="sample_btn" value="ajax通信で取得する">
+
+<script>
+$(function(){
+    //.sampleをクリックしてajax通信を行う
+    $('.sample_btn').click(function(){
+        $.ajax({
+            url: 'https://kinocolog.com/ajax/test.html',
+            /* 自サイトのドメインであれば、https://kinocolog.com/ajax/test.html というURL指定も可 */
+            type: 'GET',
+            dataType: 'html'
+        }).done(function(data){
+            /* 通信成功時 */
+            $('.result').html(data); //取得したHTMLを.resultに反映
+            
+        }).fail(function(data){
+            /* 通信失敗時 */
+            alert('通信失敗！');
+                    
+        });
+    });
+});
+</script>
+</body>
+</html>
